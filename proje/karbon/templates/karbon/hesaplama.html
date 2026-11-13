@@ -1,0 +1,267 @@
+{% extends 'karbon/navbar.html' %} <!--hazırlanan navbar şablonu kullanılıyor.-->
+{% load crispy_forms_tags %} <!--django formu render edilmesi için.-->
+{% block content %}
+
+<div class="container py-5"><!--sayfanın ana kapsayıcısı için.-->
+  <div class="text-center mb-5"><!--ortalama için.--> 
+    <span class="hero-badge">Emisyon Hesaplama Paneli</span><!--küçük vurgu başlığı.-->
+    <h1 class="calc-page-title mt-3">Karbon Ayak İzi Hesaplama</h1><!--başlık-->
+    <p class="calc-page-subtitle">
+      Elektrik, doğalgaz ve yakıt tüketim bilgilerini girerek Scope 1 ve Scope 2
+      emisyonlarını ayrı ayrı görüntüleyin.
+    </p>
+  </div>
+
+  <!--FORM DOLDURMA VE SONUÇ KISMI-->
+  <div class="row g-4 align-items-start"><!--üstten hizalama için.-->
+    <div class="col-lg-5"><!--12'de 5 lik yer kaplama, sol taraf formu için.-->
+      <div class="calc-form-card">
+        <div class="mb-4">
+          <h3 class="calc-section-title">Tüketim Bilgileri</h3><!--form başlığı ve kullanıcı bilgilendirme kısmı.-->
+          <p class="calc-section-text mb-0">
+            Aşağıdaki alanları doldurun ve emisyon sonuçlarınızı görüntüleyin.
+          </p>
+        </div>
+
+        <form method="POST"><!--veri alarak formu oluşturma.-->
+          {% csrf_token %} {{ form|crispy }}
+
+          <div class="d-grid mt-4"><!--butonu tam genişliğe yakın oluşturma.-->
+            <button type="submit" class="btn btn-success btn-lg">
+              Hesapla
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-7"><!--12'de 7 lik yer kaplama, sağ taraf sonuçlar kısmı için.-->
+      <div class="calc-result-card">
+        {% if total %}<!--eğer hesaplama yapılmış ve total değeri varsa (yoksa boş ekran gösterir).-->
+
+        <div
+          class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+        ><!--hesaplama yapıldıktan sonra çıkan ekranda gösterilen üst başlıklar kısmı.-->
+          <div>
+            <h3 class="calc-section-title mb-1">Hesaplama Sonuçları</h3>
+            <p class="calc-section-text mb-0">
+              Emisyon değerleriniz ayrı kategorilerde gösterilmektedir.
+            </p>
+          </div>
+          <div class="result-badge">Toplam Emisyon Hazır</div>
+        </div>
+
+        <div class="row g-3 mb-4"><!--3 tane sonuç kartı göstermek için.-->
+          <div class="col-md-4"><!--scope1 kartın gösterimi.-->
+            <div class="result-stat-card scope1-card">
+              <p class="result-label">Scope 1</p>
+              <h3>{{ scope1|floatformat:2 }}</h3><!--backend den gelen değer 2 basamak olarak gösterilir.-->
+              <span>kg CO₂</span>
+              <small>Doğrudan emisyonlar</small>
+            </div>
+          </div>
+
+          <div class="col-md-4"><!--scope2 kartın gösterimi.-->
+            <div class="result-stat-card scope2-card">
+              <p class="result-label">Scope 2</p>
+              <h3>{{ scope2|floatformat:2 }}</h3><!--backend den gelen değer 2 basamak olarak gösterilir.-->
+              <span>kg CO₂</span>
+              <small>Elektrik kaynaklı dolaylı emisyonlar</small>
+            </div>
+          </div>
+
+          <div class="col-md-4"><!--total kartının gösterimi.-->
+            <div class="result-stat-card total-card">
+              <p class="result-label">Toplam</p>
+              <h3>{{ total|floatformat:2 }}</h3><!--backend den gelen değer 2 basamak olarak gösterilir.-->
+              <span>kg CO₂</span>
+              <small>Toplam karbon ayak izi</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="analysis-box mb-4"><!--sonucun yüzdesel dağılımını göstermek için.-->
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">Dağılım Analizi</h5>
+            <span class="analysis-mini-text">Scope karşılaştırması</span>
+          </div>
+
+          <div class="progress custom-progress mb-3">
+            <div
+              class="progress-bar progress-scope1"
+              role="progressbar"
+              data-width="{{ scope1_percent }}"
+              aria-valuenow="{{ scope1_percent|floatformat:0 }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              Scope 1 %{{ scope1_percent|floatformat:0 }}
+            </div><!--backend de hesaplanır ve yazı ile yüzdelik olarak gösterilir.-->
+          </div>
+
+          <div class="progress custom-progress">
+            <div
+              class="progress-bar progress-scope2"
+              role="progressbar"
+              data-width="{{ scope2_percent }}"
+              aria-valuenow="{{ scope2_percent|floatformat:0 }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              Scope 2 %{{ scope2_percent|floatformat:0 }}
+            </div><!--backend de hesaplanır ve yazı ile yüzdelik olarak gösterilir.-->
+          </div>
+        </div>
+
+        <div class="chart-card"><!--grafik kısmı için.-->
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+              <h4 class="chart-title">Emisyon Grafiği</h4>
+              <p class="chart-text">
+                Doughnut grafik ile Scope 1 ve Scope 2 değerlerini hızlıca
+                karşılaştırabilirsiniz.
+              </p><!--kullanıcı bilgilendirme kısmı.-->
+
+              <div class="chart-legend-box">
+                <div class="legend-item">
+                  <span class="legend-dot dot-scope1"></span>
+                  Scope 1: {{ scope1|floatformat:2 }} kg CO₂
+                  <strong class="ms-1"
+                    >(%{{ scope1_percent|floatformat:0 }})</strong
+                  >
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot dot-scope2"></span>
+                  Scope 2: {{ scope2|floatformat:2 }} kg CO₂
+                  <strong class="ms-1"
+                    >(%{{ scope2_percent|floatformat:0 }})</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6"><!--grafik çizilecek kısım.-->
+              <div class="chart-wrapper">
+                <canvas
+                  id="emissionChart"
+                  data-scope1="{{ scope1 }}"
+                  data-scope2="{{ scope2 }}"
+                ><!--veri HTML üzerinden taşınıyor.-->
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% else %}<!--eğer hesaplama yapılmadıysa gösterilecek kısım.-->
+
+        <div class="empty-result-state text-center">
+          <div class="empty-icon">🌿</div>
+          <h3 class="mt-3">Henüz hesaplama yapılmadı.</h3>
+          <p class="text-muted mb-0">
+            Soldaki formu doldurarak Scope 1, Scope 2 ve toplam emisyon
+            sonuçlarınızı görüntüleyebilirsiniz.
+          </p>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--GRAFİK KISMI-->
+{% if total %}<!--grafik oluşturma kısmı, HTML'den veriyi alarak sayıya çevirme.-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script><!--chart.js kütüphanesi yükleniyor.-->
+<script>
+  //canvas elementini çekiyoruz.
+  const canvas = document.getElementById("emissionChart");
+
+  if (canvas) {
+    //data-scope1 ve data-scope1 değerini alıyoruz,boşsa 0 yapılır,virgül noktaya çevriliyor ve parse ile sayıya çeviriyoruz.
+    const scope1 = parseFloat((canvas.dataset.scope1 || "0").replace(",", "."));
+    const scope2 = parseFloat((canvas.dataset.scope2 || "0").replace(",", "."));
+
+    //çizim için context alındı.
+    const ctx = canvas.getContext("2d");
+
+    //yeni grafik oluşturma
+    new Chart(ctx, {
+      //grafik tipi halka
+      type: "doughnut",
+      //grafik verileri
+      data: {
+        //grafik başlıkları
+        labels: ["Scope 1", "Scope 2"],
+        datasets: [
+          {
+            //değerler grafiğe verildi
+            data: [scope1, scope2],
+            //dilim renkleri
+            backgroundColor: ["#198754", "#8fd19e"],
+            //dilimler arası renkler
+            borderColor: ["#ffffff", "#ffffff"],
+            borderWidth: 4,
+          },
+        ],
+      },
+      //grafik ayarları
+      options: {
+        //responsive tasarıma uygun
+        responsive: true,
+        //container boyutuna göre şekil alma
+        maintainAspectRatio: false,
+        cutout: "62%",
+        plugins: {
+          legend: {
+            //varsayılan legend kapalı çünkü özelleştirildi zaten
+            display: false,
+          },
+        },
+      },
+    });
+  }
+</script>
+{% endif %}
+
+<!--GEÇMİŞ KULLANICI VERİLERİ-->
+<div class="mt-5"><!--geçmiş hesaplamalar için.-->
+  <h3 class="calc-section-title mb-3">Geçmiş Hesaplamalarım</h3>
+
+  {% if records %}<!--eğer kayıt varsa gösterilen tablo için.-->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover bg-white"><!--bootstrap ile tablo oluşturma.-->
+      <thead class="table-light">
+        <tr><!--yablo başlıkları için.-->
+          <th>Tarih</th>
+          <th>Elektrik</th>
+          <th>Doğalgaz</th>
+          <th>Yakıt Türü</th>
+          <th>Yakıt Miktarı</th>
+          <th>Scope 1</th>
+          <th>Scope 2</th>
+          <th>Toplam</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}<!--veri kayıtlarını tabloya basmak için.-->
+        <tr><!--satırdaki veriler-->
+          <td>{{ record.created_at|date:"d.m.Y H:i" }}</td>
+          <td>{{ record.electricity }}</td>
+          <td>{{ record.natural_gas }}</td>
+          <td>{{ record.fuel_type }}</td>
+          <td>{{ record.fuel_amount }}</td>
+          <td>{{ record.scope1|floatformat:2 }}</td>
+          <td>{{ record.scope2|floatformat:2 }}</td>
+          <td>{{ record.total_emission|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}<!--kayıt yapılmadıysa-->
+  <p class="text-muted">Henüz kayıt yok</p>
+  {% endif %}
+</div>
+
+{% endblock %}<!--navbar.html içindeki block content kısmını kapatıyor.-->

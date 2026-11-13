@@ -1,0 +1,65 @@
+ {% extends 'karbon/navbar.html' %}
+{% load static %}
+
+{% block content %}
+ 
+ <div class="text-center mb-5">
+    <h1 class="fw-bold">👤 Bilgilerim</h1>
+    <p class="text-muted">Hesap Bilgilerin ve Geçmiş Emisyon Kayıtların</p>
+  </div>
+
+  <!-- KULLANICI BİLGİLERİ -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h4 class="mb-3">Kullanıcı Bilgileri</h4>
+
+      <p><strong>Kullanıcı Adı:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Kayıt Tarihi:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+      <a href="{% url 'sifre-degistir' %}" class="btn btn-success mt-3">
+    Şifre Değiştir
+</a>
+    </div>
+  </div>
+
+  <!-- GEÇMİŞ KAYITLAR -->
+  <div>
+    <h4 class="mb-3">📊 Hesaplama Geçmişi</h4>
+
+    {% if records %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover bg-white">
+        <thead class="table-success">
+          <tr>
+            <th>Tarih</th>
+            <th>Elektrik</th>
+            <th>Doğalgaz</th>
+            <th>Yakıt</th>
+            <th>Scope 1</th>
+            <th>Scope 2</th>
+            <th>Toplam</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in records %}
+          <tr>
+            <td>{{ record.created_at|date:"d.m.Y H:i" }}</td>
+            <td>{{ record.electricity }}</td>
+            <td>{{ record.natural_gas }}</td>
+            <td>{{ record.fuel }}</td>
+            <td>{{ record.scope1|floatformat:2 }}</td>
+            <td>{{ record.scope2|floatformat:2 }}</td>
+            <td>{{ record.total_emission|floatformat:2 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="text-muted">Henüz kayıt bulunmuyor.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

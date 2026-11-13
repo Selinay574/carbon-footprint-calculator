@@ -1,0 +1,60 @@
+{% load static %}<!--static klasöründeki dosyaları kullanmak için yazıldı.-->
+
+<!doctype html>
+<html lang="tr"><!--türkçe karakter kullanmak için yazıldı.-->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    /><!--bootstrap css dahil edildi.-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" /><!--css dosyası projeye dahil edildi.-->
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title>Anasayfa</title><!--başlık-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary"><!--navbar yapısı-->
+      <div class="container-fluid"><!--navbar da tam genişlik.-->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        ><!--mobilde hamburger görünümü için.-->
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01"><!--açılıp kapanan menü.-->
+          <a class="navbar-brand" href="{% url '' %}">Anasayfa</a><!--anasayfa yönlendirmesi.-->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"><!--menü kısmı.-->
+            <li class="nav-item me-2">
+              <a class="nav-link" href="{% url 'hesaplama' %}"
+                >Kullanıcı Sayfası</a
+              >
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="{% url 'bilgilerim' %}">Bilgilerim</a>
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="{% url 'user-logout' %}">Çıkış Yap</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {%block content%} 
+    {% endblock %}
+
+    <script src="{% static 'js/app.js' %}"></script><!--js dosyası için.-->
+  </body>
+</html>

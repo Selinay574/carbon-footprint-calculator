@@ -1,0 +1,523 @@
+body {
+    background: linear-gradient(180deg, #f5f9f6 0%, #eef5f1 100%); /*sayfanın yukarıdan aşağı renk geçişini sağlar.*/
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #1f2937;
+}
+
+/* Navbar */
+.custom-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);/* arka planın bulanık olması için */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    padding-top: 14px;/* Navbar yüksekliği */
+    padding-bottom: 14px;
+}
+
+/* Navbar logo yazısı */
+.navbar-brand {
+    font-size: 1.4rem;
+    color: #198754 !important;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+}
+
+/* Navbar logosu */
+.navbar-brand img {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Hero */
+.hero-section {
+    padding: 80px 0 50px;/* üst alan boşluk */
+}
+
+/* Hero küçük yeşil etiket için */
+.hero-badge {
+    display: inline-block;
+    background: #e7f6ed;
+    color: #198754;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+/* Hero kısmındaki büyük başlık için */
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #102a1c;
+}
+
+.hero-title span {
+    color: #198754;/* yeşil vurgu için */
+}
+
+.hero-text {
+    font-size: 1.1rem;
+    color: #5f6b66;
+    max-width: 620px;
+    line-height: 1.7;
+}
+
+.hero-secondary-btn {
+    border: 1px solid #dfe8e2;
+    color: #1f2937;
+}
+
+.hero-secondary-btn:hover {
+    background: #f1f5f3;
+}
+
+/* Hero sağ kart */
+.hero-card-modern {
+    background: linear-gradient(135deg, #ffffff, #f1f5f4);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.hero-card-modern:hover {
+    transform: translateY(-5px);/* üstüne geldiğinde yukarı kalkar */
+}
+
+.mini-header {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.mini-stats {
+    display: flex;/* mini kartlar vyan yana dizilir. */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.mini-box {
+    flex: 1;/* eşit genişlik için */
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+}
+
+.scope1 {
+    background: #2ecc71;
+}
+
+.scope2 {
+    background: #34495e;
+}
+
+.divider {
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+.feature-list-modern {
+    list-style: none;
+    padding-left: 0;
+}
+
+.feature-list-modern li {
+    margin-bottom: 6px;
+}
+.mini-chart {
+    height: 180px;
+    background: linear-gradient(180deg, #f7fbf8 0%, #edf7f0 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 18px;
+    padding: 25px;
+}
+
+.chart-bar {
+    width: 54px;
+    border-radius: 16px 16px 8px 8px;
+    background: linear-gradient(180deg, #45c486 0%, #198754 100%);
+}
+
+.bar1 {
+    height: 70px;
+}
+
+.bar2 {
+    height: 120px;
+}
+
+.bar3 {
+    height: 95px;
+}
+
+.feature-list {
+    padding-left: 18px;
+    margin-bottom: 0;
+    color: #4b5563;
+    line-height: 1.9;
+}
+
+/* küçük kutular */
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.stat-box {
+    padding: 15px;
+    border-radius: 12px;
+    background: #f8f9fa;
+    transition: 0.3s;
+}
+
+.stat-box:hover {
+    background: #e9f7ef;
+    transform: translateY(-3px);
+}
+
+.stat-box h4 {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #198754;
+}
+
+.stat-box p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #667085;
+}
+
+/* Section headings */
+.section-heading h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #13281d;
+}
+
+.section-heading p {
+    color: #667085;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.card {
+    transition: all 0.3s ease;
+}
+
+/* bilgilendirme kartları */
+.info-card-advanced {
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.info-card-advanced:hover {
+    transform: translateY(-8px);
+}
+
+.icon-big {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* CTA */
+.cta-box {
+    background: linear-gradient(135deg, #ffffff 0%, #edf7f1 100%);
+    border-radius: 28px;
+    padding: 50px 30px;
+    box-shadow: 0 20px 50px rgba(25, 135, 84, 0.08);
+    border: 1px solid #e3efe7;
+}
+
+.cta-box h2 {
+    font-weight: 800;
+    color: #13281d;
+}
+
+.cta-box p {
+    color: #667085;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Buttons */
+.btn-success {
+    background: linear-gradient(135deg, #22a861 0%, #198754 100%);
+    border: none;
+    box-shadow: 0 10px 24px rgba(25, 135, 84, 0.22);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #1f9a59 0%, #157347 100%);
+    transform: translateY(-1px);
+}
+
+.btn {
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    font-weight: 600;
+}
+
+/* Hesaplama sayfası */
+.calc-page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #102a1c;
+}
+
+.calc-page-subtitle {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #667085;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.calc-form-card,
+.calc-result-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #e4efe8;
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(16, 42, 28, 0.08);
+}
+
+.calc-section-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #13281d;
+}
+
+.calc-section-text {
+    color: #6b7280;
+    line-height: 1.7;
+}
+
+.calc-form-card .form-control {
+    border-radius: 14px;
+    min-height: 50px;
+    border: 1px solid #d7e4db;
+    box-shadow: none;
+}
+
+.calc-form-card .form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.12);
+}
+
+.result-badge {
+    background: #e8f7ee;
+    color: #198754;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.result-stat-card {
+    height: 100%;
+    border-radius: 22px;
+    padding: 24px 20px;
+    color: #fff;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+}
+
+.result-stat-card h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 8px 0 4px;
+}
+
+.result-stat-card span {
+    display: block;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.result-stat-card small {
+    display: block;
+    margin-top: 10px;
+    opacity: 0.9;
+    font-size: 0.88rem;
+}
+
+.result-label {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.scope1-card {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%);
+}
+
+.scope2-card {
+    background: linear-gradient(135deg, #53b97b 0%, #2f9e63 100%);
+}
+
+.total-card {
+    background: linear-gradient(135deg, #102a1c 0%, #1c4b31 100%);
+}
+
+.analysis-box {
+    background: #f8fbf9;
+    border: 1px solid #e6efe9;
+    border-radius: 20px;
+    padding: 22px;
+}
+
+.analysis-mini-text {
+    color: #667085;
+    font-size: 0.9rem;
+}
+
+.custom-progress {
+    height: 30px;
+    background: #e9f1ec;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-scope1 {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+}
+
+.progress-scope2 {
+    background: linear-gradient(135deg, #7ecb95 0%, #4fad72 100%);
+    font-weight: 600;
+    color: #16351f;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+}
+
+.chart-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f3faf5 100%);
+    border: 1px solid #e4efe8;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.chart-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #13281d;
+}
+
+.chart-text {
+    color: #6b7280;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
+    margin: 0 auto;
+}
+
+.chart-legend-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #334155;
+    font-weight: 500;
+    flex-wrap: wrap;
+}
+
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-scope1 {
+    background: #198754;
+}
+
+.dot-scope2 {
+    background: #8fd19e;
+}
+
+.empty-result-state {
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.empty-icon {
+    font-size: 4rem;
+}
+
+/* Responsive Görünüm */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.3rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .calc-page-title {
+        font-size: 2rem;
+    }
+
+    .calc-form-card,
+    .calc-result-card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding-top: 50px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-card {
+        padding: 24px;
+    }
+
+    .cta-box {
+        padding: 35px 20px;
+    }
+
+    .result-stat-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .calc-page-title {
+        font-size: 1.8rem;
+    }
+}

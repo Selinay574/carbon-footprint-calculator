@@ -1,0 +1,47 @@
+{% load static %} <!--static klasöründeki dosyaları kullanmak için.-->
+{% load crispy_forms_tags %} <!--django formu render edilmesi için.-->
+
+<!doctype html>
+<html lang="tr"> <!--türkçe karakter kullanımı için.-->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    /><!--bootstrap css dahil edildi.-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" /><!--css dosyası dahil edildi.-->
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title>Kayıt Ol</title><!--başlık belirtme.-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script><!--bootstrap js  projeye dahil edildi.-->
+  </head>
+  <body>
+    <div class="container p-5">
+      <div class="row justify-content-center"><!--ortalamak için.-->
+        <div class="col-md-6 shadow-lg bg-white p-5 rounded-5"><!--form kutusu oluşturuldu.-->
+          <h3>Hesap Oluştur</h3>
+          <h5>Sen de karbon ayak izini hesapla ve bilgilen!</h5>
+          <br />
+          <br />
+          <form method="POST" autocomplete="off"><!--veri gönderme,tarayıcı otomatik dolmaz.-->
+            {% csrf_token %} {{RegistrationForm| crispy}}<!--django güvenliği ve otomatik form çizme-->
+            <br />
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-success w-50">Kaydol</button><!--bootstrap class ile buton oluşumu.-->
+            </div>
+          </form>
+          <br />
+          <div class="text-center">
+            <a href="{% url 'login'%}">Hesabın Var mı?</a><!--yönlendirme.-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
